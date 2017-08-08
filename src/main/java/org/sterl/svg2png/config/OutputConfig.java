@@ -33,11 +33,48 @@ public class OutputConfig {
         return result;
     }
 
-    public void addOutput() {
+    public void setInputDirectory(String inputDirectory) {
+		this.inputDirectory = inputDirectory;
+	}
+
+    public String getInputDirectory() {
+		return this.inputDirectory;
+	}
+
+    public void setInputFile(String inputFile) {
+		this.inputFile = inputFile;
+	}
+
+	public String getInputFile() {
+		return this.inputFile;
+	}
+
+	public void addOutput() {
         files.add(new FileOutput());
     }
     
     public boolean hasDirctoryOrFile() {
         return inputFile != null || inputDirectory != null;
     }
+
+	public String getOutputName() {
+		return outputName;
+	}
+
+	public void setOutputName(String outputName) {
+		this.outputName = outputName;
+	}
+
+	public String getOutputDirectory() {
+		return outputDirectory;
+	}
+
+	public void setOutputDirectory(String outputDirectory) {
+		this.outputDirectory = outputDirectory;
+	}
+
+	public List<FileOutput> getFiles() {
+		return files;
+	}
+
 }
