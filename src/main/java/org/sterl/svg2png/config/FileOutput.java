@@ -74,4 +74,12 @@ public class FileOutput {
 	public void setHeight(int height) {
 		this.height = height;
 	}
+
+	public String getDirectory() {
+		return this.directory;
+	}
+
+	public void setDirectory(String directory) {
+		this.directory = directory;
+	}
 }
