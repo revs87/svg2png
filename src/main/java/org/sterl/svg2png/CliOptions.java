@@ -23,6 +23,7 @@ public enum CliOptions {
 
     ANDROID(null, "android", false, "Android Icon 48dp mdpi 48x48 -> xxxhdpi 192x192."),
     ANDROID_RATIO(null, "android-ratio", false, "Android default ratio: mdpi 1 -> xxxhdpi 4."),
+    IOS_RATIO(null, "ios-ratio", false, "IOS default ratio: 1x -> 4x."),
     ANDROID_LAUNCH(null, "android-launch", false, "Android Launcher Icon config mdpi 48x48 -> xxxhdpi 192x192."),
     ANDROID_ICON(null, "android-icon", false, "Android Icon (Action Bar, Dialog etc.)  config mdpi 36x36 -> xxxhdpi 128x128."),
     ANDROID_SMALL(null, "android-small", false, "Android Small default config from mdpi 24x24 -> xxxhdpi 96x96."),
