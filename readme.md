@@ -36,6 +36,13 @@ svg2png -d . -c my.json
 # convert SVG files using the default Android configuration
 svg2png -d . -o /dev/workset/android-project/app/src/main/res --android
 
+# convert SVG file based on density ratio: "-r 4" (ratio=4)
+java -jar ~/svg2png/jar/svg2png -r 4 -f svg/ic_success.svg -o png/
+
+# convert SVG files based on density ratios for Android and iOS
+java -jar svg2png --android-ratio -d svg2png/svg/ -o svg2png/png -c svg2png/src/main/resources/android-ratio.json
+java -jar svg2png --ios-ratio -d svg2png/svg/ -o svg2png/png -c svg2png/src/main/resources/ios-ratio.json
+
 # you can always start it like any other java jar file
 java -jar svg2png
 ```
@@ -50,6 +57,10 @@ java -jar svg2png
                               192x192.
             --android-small   Android Small default config from mdpi 24x24 ->
                               xxxhdpi 96x96.
+            --android-ratio   Android default config from mdpi ratio 1 ->
+                              xxxhdpi ratio 4.
+            --ios-ratio       iOS default config from 1x ratio ->
+                              4x ratio.
          -c <arg>             JSON Config file for the file output.
          -d <arg>             Source directory with one or more files to convert.
          -f <arg>             Source file to convert.
@@ -57,8 +68,9 @@ java -jar svg2png
          -n <arg>             New name to use for all output files.
          -o <arg>             Output directory where to put the file.
          -w <arg>             Width of the output file.
+         -r <arg>             Ratio of the output file.
 
-## JSON Android Config Sample
+## JSON Android and iOS Config Sample
 
 ```JSON
 {
@@ -92,14 +104,63 @@ java -jar svg2png
     ]
 }
 ```
+```JSON
+{
+    "files": [
+        {
+            "directory": "drawable-xxxhdpi",
+            "ratio": 4
+        },{
+            "directory": "drawable-xxhdpi",
+            "ratio": 3
+        },{
+            "directory": "drawable-xhdpi",
+            "ratio": 2
+        },{
+            "directory": "drawable-hdpi",
+            "ratio": 1.5
+        },{
+            "directory": "drawable-mdpi",
+            "ratio": 1
+        }
+    ]
+}
+```
+```JSON
+{
+    "files": [
+        {
+            "directory": "iOS/4x",
+            "nameSuffix": "@4x",
+            "ratio": 4
+        },{
+            "directory": "iOS/3x",
+            "nameSuffix": "@3x",
+            "ratio": 3
+        },{
+            "directory": "iOS/2x",
+            "nameSuffix": "@2x",
+            "ratio": 2
+        },{
+            "directory": "iOS/1.5x",
+            "nameSuffix": "@1.5x",
+            "ratio": 1.5
+        },{
+            "directory": "iOS/1x",
+            "nameSuffix": "@1x",
+            "ratio": 1
+        }
+    ]
+}
+```
 
 ## Editing
 
 Import to Eclipse:
-### git clone https://github.com/revs87/svg2png
-
+```
+git clone https://github.com/revs87/svg2png
+```
 Generate .jar in Eclipse from:
-### Main.java -> Export -> Runnable JAR File
-
-Execute .jar created in Eclipse:
-### java -jar svg2png.jar
+```
+Main.java -> Export -> Runnable JAR File
+```
