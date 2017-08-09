@@ -102,4 +102,4 @@ Generate .jar in Eclipse from:
 ### Main.java -> Export -> Runnable JAR File
 
 Execute .jar created in Eclipse:
-### java -jar svg2png_dev.jar
+### java -jar svg2png.jar
