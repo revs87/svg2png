@@ -126,14 +126,10 @@ public enum CliOptions {
 
         if (result.getFiles().isEmpty()) {
             FileOutput out = new FileOutput();
-            
-            
-            //TODO
+
             if (cmd.hasOption(RATIO.shortName)) {
                 out.setRatio(Integer.parseInt(getValue(cmd, RATIO)));
             }
-            
-            
             if (cmd.hasOption(WIDTH.shortName)) {
                 out.setWidth(Integer.parseInt(getValue(cmd, WIDTH)));
             }
