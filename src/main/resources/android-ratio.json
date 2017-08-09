@@ -1,0 +1,20 @@
+{
+    "files": [
+        {
+            "directory": "drawable-xxxhdpi",
+            "ratio": 4
+        },{
+            "directory": "drawable-xxhdpi",
+            "ratio": 3
+        },{
+            "directory": "drawable-xhdpi",
+            "ratio": 2
+        },{
+            "directory": "drawable-hdpi",
+            "ratio": 1.5
+        },{
+            "directory": "drawable-mdpi",
+            "ratio": 1
+        }
+    ]
+}

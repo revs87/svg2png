@@ -54,7 +54,8 @@ public class Main {
             }
             
             // validation
-            if (!cfg.hasDirctoryOrFile() || (cfg.getInputDirectory() != null && cfg.getInputFile() != null)) {
+            if ((cfg.getInputFile() == null && cfg.getInputDirectory() == null)
+            		|| (cfg.getInputFile() != null && cfg.getInputDirectory() != null)) {
                 throw new IllegalArgumentException("Pleace specify either a directory or a file to convert!");
             } else if (cfg.getInputFile() != null) {
                 File f = FileUtil.newFile(cfg.getInputFile());

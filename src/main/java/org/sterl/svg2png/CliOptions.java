@@ -19,8 +19,11 @@ public enum CliOptions {
     WIDTH("w", null, true, "Width of the output file."),
     HEIGHT("h", null, true, "Height of the output file."),
     CONFIG("c", null, true, "JSON Config file for the file output."),
+    RATIO("r", null, true, "Ratio of the output file."),
 
     ANDROID(null, "android", false, "Android Icon 48dp mdpi 48x48 -> xxxhdpi 192x192."),
+    ANDROID_RATIO(null, "android-ratio", false, "Android default ratio: mdpi 1 -> xxxhdpi 4."),
+    IOS_RATIO(null, "ios-ratio", false, "IOS default ratio: 1x -> 4x."),
     ANDROID_LAUNCH(null, "android-launch", false, "Android Launcher Icon config mdpi 48x48 -> xxxhdpi 192x192."),
     ANDROID_ICON(null, "android-icon", false, "Android Icon (Action Bar, Dialog etc.)  config mdpi 36x36 -> xxxhdpi 128x128."),
     ANDROID_SMALL(null, "android-small", false, "Android Small default config from mdpi 24x24 -> xxxhdpi 96x96."),
@@ -64,6 +67,12 @@ public enum CliOptions {
         } else if (cmd.hasOption(ANDROID.longName)) {
             try {
                 result = m.readerFor(OutputConfig.class).readValue(CliOptions.class.getResourceAsStream("/android.json"));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } else if (cmd.hasOption(ANDROID_RATIO.longName)) {
+            try {
+                result = m.readerFor(OutputConfig.class).readValue(CliOptions.class.getResourceAsStream("/android-ratio.json"));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -118,6 +127,10 @@ public enum CliOptions {
 
         if (result.getFiles().isEmpty()) {
             FileOutput out = new FileOutput();
+
+            if (cmd.hasOption(RATIO.shortName)) {
+                out.setRatio(Integer.parseInt(getValue(cmd, RATIO)));
+            }
             if (cmd.hasOption(WIDTH.shortName)) {
                 out.setWidth(Integer.parseInt(getValue(cmd, WIDTH)));
             }

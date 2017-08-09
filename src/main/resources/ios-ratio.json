@@ -1,0 +1,25 @@
+{
+    "files": [
+        {
+            "directory": "iOS/4x",
+            "nameSuffix": "@4x",
+            "ratio": 4
+        },{
+            "directory": "iOS/3x",
+            "nameSuffix": "@3x",
+            "ratio": 3
+        },{
+            "directory": "iOS/2x",
+            "nameSuffix": "@2x",
+            "ratio": 2
+        },{
+            "directory": "iOS/1.5x",
+            "nameSuffix": "@1.5x",
+            "ratio": 1.5
+        },{
+            "directory": "iOS/1x",
+            "nameSuffix": "@1x",
+            "ratio": 1
+        }
+    ]
+}

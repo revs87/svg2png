@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.swing.text.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
@@ -16,6 +21,7 @@ import org.apache.commons.io.FileUtils;
 import org.sterl.svg2png.config.FileOutput;
 import org.sterl.svg2png.config.OutputConfig;
 import org.sterl.svg2png.util.FileUtil;
+import org.xml.sax.SAXException;
 
 public class Svg2Png {
 
@@ -45,6 +51,40 @@ public class Svg2Png {
 
     private static List<File> convertFile(File input, OutputConfig cfg) throws IOException, TranscoderException, FileNotFoundException {
         TranscoderInput ti = new TranscoderInput(input.toURI().toString());
+
+        // RATIO
+        // ##########################################################################################################
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = null;
+        org.w3c.dom.Document document = null;
+		try {
+			builder = factory.newDocumentBuilder();
+			document = builder.parse(input.toURI().toString());
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+			System.out.println("ParserConfigurationException");
+			System.exit(1);
+		} catch (SAXException e) {
+			e.printStackTrace();
+			System.out.println("SAXException");
+			System.exit(1);
+		}
+
+        String split = "" +
+                "(?<=[a-z])(?=\\d)" +    // space between letter and digit
+                "|(?<=\\d)(?=[a-z])" +   // space between digit and letter
+                "";
+		String[] width = document.getDocumentElement().getAttribute("width").split(split);
+		String[] height = document.getDocumentElement().getAttribute("height").split(split);
+		if(!"px".equalsIgnoreCase(width[1])
+				|| !"px".equalsIgnoreCase(height[1])) {
+			System.out.println("Ratio can't be used against non px units. Check your svg default width and height.");
+			System.exit(1);
+		}
+        int defaultWidth = Integer.valueOf(width[0]);
+        int defaultHeight = Integer.valueOf(height[0]);
+        // ##########################################################################################################
+
         PNGTranscoder t = new PNGTranscoder();
         List<File> generated = new ArrayList<>();
 
@@ -52,6 +92,16 @@ public class Svg2Png {
         for (FileOutput out : cfg.getFiles()) {
             info.setLength(0);
             info.append(input.getName());
+
+//            System.out.println(defaultWidth);
+//            System.out.println(defaultHeight);
+//            System.out.println(out.getRatio());
+
+            // RATIO
+            if (out.getRatio() > 0) {
+                out.setWidth((int)(defaultWidth * out.getRatio()));
+                out.setHeight((int)(defaultHeight * out.getRatio()));
+            };
 
             if (out.getWidth() > 0) {
                 t.addTranscodingHint(PNGTranscoder.KEY_WIDTH, new Float(out.getWidth()));

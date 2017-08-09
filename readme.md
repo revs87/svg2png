@@ -99,7 +99,7 @@ Import to Eclipse:
 ### git clone https://github.com/revs87/svg2png
 
 Generate .jar in Eclipse from:
-### Main.java -> Export -> JAR File
+### Main.java -> Export -> Runnable JAR File
 
 Execute .jar created in Eclipse:
-### java -jar svg2png_dev.jar
+### java -jar svg2png.jar

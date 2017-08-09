@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class FileOutput {
     private int height = -1;
     private int width = -1;
+	private float ratio;
     private String name;
     private String directory;
     private String nameSuffix;
@@ -81,5 +82,29 @@ public class FileOutput {
 
 	public void setDirectory(String directory) {
 		this.directory = directory;
+	}
+
+	public float getRatio() {
+		return this.ratio;
+	}
+
+	public void setRatio(float ratio) {
+		this.ratio = ratio;
+	}
+
+	public String getNamePrefix() {
+		return namePrefix;
+	}
+
+	public void setNamePrefix(String namePrefix) {
+		this.namePrefix = namePrefix;
+	}
+
+	public String getNameSuffix() {
+		return nameSuffix;
+	}
+
+	public void setNameSuffix(String nameSuffix) {
+		this.nameSuffix = nameSuffix;
 	}
 }
